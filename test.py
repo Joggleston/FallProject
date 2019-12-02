@@ -1,24 +1,58 @@
-from graphics import *
+import random
 
-win = GraphWin("test", 400, 400)
-class mySphere(object):
+x, y = 8, 8
+n = 0
+board = [[0 for i in range(x)] for j in range(y)]
+while n < 10:
+    col = random.randint(0, y-1)
+    row = random.randint(0, y-1)
+    if board[row][col] != -1:
+        board[row][col] = -1
+        n += 1
 
-    def __init__(self):
-        self.x = 0
-        self.y = 0
-        self.r = 0
-        self.r2 = 0
-    def make():
-        self.make = self.draw(win)
-    
-def inner():
-    self.inner = Circle(Point(x, y), r)
-def outer():
-    self.outer = Circle(Point(x, y), r2)
+for i in range(x):
+    for j in range(y):
+        if board[i][j] != -1:
+            try:
+                if board[i-1][j] == -1:
+                    # left, none
+                    board[i][j] += 1
+                if board[i][j-1] == -1:
+                    #none, down
+                    board[i][j] += 1
+                if board[i-1][j-1] == -1:
+                    #left, down
+                    board[i][j] += 1
+                if board[i+1][j] == -1:
+                    #right, none
+                    board[i][j] += 1
+                if board[i][j+1] == -1:
+                    #none, up
+                    board[i][j] += 1
+                if board[i+1][j-1] == -1:
+                    #right, down
+                    board[i][j] += 1
+                if board[i-1][j+1] == -1:
+                    #left, up
+                    board[i][j] += 1
+                if board[i+1][j+1] == -1:
+                    #right, up
+                    board[i][j] += 1
+            except IndexError:
+                pass
+        
+def checkzero(X_, Y_):
+    zeroes = []
 
-def create(x, y, r, r2):
-    inner = Circle(Point(x, y), r)
-    outer = Circle(Point(x, y), r2)
-    mySphere.make
-
-create(200, 200, 150, 300)
+    for i in range(X_-1, X_+2):
+        for j in range(Y_-1, Y_+2):
+            if board[i][j] == 0:
+                zeroes.append((i, j))
+                board[i][j].undraw()
+    X_, Y_ = zeroes[0]
+    print(X_, Y_)
+        for i in range(X_-1, X_+2):
+            for j in range(Y_-1, Y_+2):
+                if board[i][j] == 0:
+                    zeroes.append((i, j))
+                    board[i][j].undraw()
